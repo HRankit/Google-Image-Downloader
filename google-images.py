@@ -62,23 +62,33 @@ def all_links(page):
             page = page[end_content:]
     return links
 
+
+
 def download_images(links, search_keyword):
 
+    search_keyword = search_keyword.replace("%20","_")
+    directory = search_keyword+'/'
+
+    
+    if not os.path.isdir(directory):
+        os.makedirs(directory)
+
+    
     choice = raw_input("Do you want to save the links? [y]/[n]: ")
     if choice=='y' or choice=='Y':
         #write all the links into a test file. 
-        f = open('links.txt', 'a')        #Open the text file called links.txt
+        f = open(directory +'links.txt', 'a')        #Open the text file called links.txt
         for link in links:
             f.write(str(link))
             f.write("\n")
         f.close()   #Close the file 
-    num = raw_input("Enter number of images to download (max 100): ")
+    num = raw_input("Enter number of images to download (100 default): ")
+    if num == "":
+        num = 100
     counter = 1
     errors=0
-    search_keyword = search_keyword.replace("%20","_")
-    directory = search_keyword+'/'
-    if not os.path.isdir(directory):
-        os.makedirs(directory)
+
+   
     pbar = ProgressBar()
     for link in pbar(links):
         if counter<=int(num):
