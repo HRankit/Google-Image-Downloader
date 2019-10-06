@@ -82,9 +82,9 @@ def download_images(links, search_keyword):
             f.write(str(link))
             f.write("\n")
         f.close()   #Close the file 
-    num = raw_input("Enter number of images to download (100 default): ")
+    num = raw_input("Enter number of images to download (50 default): ")
     if num == "":
-        num = 100
+        num = 50
     counter = 1
     errors=0
 
